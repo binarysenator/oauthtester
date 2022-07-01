@@ -1,0 +1,146 @@
+﻿###################
+# compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.pdb
+*.dll.config
+*.cache
+*.suo
+# Include dlls if they’re in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
+###################
+# css			  #
+###################
+Content/Bootstrap/dist/
+########################
+# front end components #
+########################
+bower_components/
+node_modules/
+Content/Lib/
+####################
+# VS Upgrade stuff #
+####################
+UpgradeLog.XML
+_UpgradeReport_Files/
+###############
+# Directories #
+###############
+bin/
+obj/
+.vs/
+Temp/
+###################
+# Web publish log #
+###################
+*.Publish.xml
+#############
+# Resharper #
+#############
+/_ReSharper.*
+*.ReSharper.*
+############
+# Packages #
+############
+# it’s better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+######################
+# Logs and databases #
+######################
+*.log
+*.sqlite
+# OS generated files #
+######################
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+[Bb]in
+[Oo]bj
+[Tt]est[Rr]esults
+*.suo
+*.pubxml.user
+*.csproj.user
+*.DotSettings.user
+*.[Cc]ache
+*[Rr]esharper*
+packages
+_[Ss]cripts
+*.exe
+*.dll
+*.nupkg
+*.ncrunchsolution
+*.dot[Cc]over
+#######################
+# Minified Javascript #
+#######################
+Scripts/change-password.min.js
+Scripts/credit-card.min.js
+Scripts/feedback-message.min.js
+Scripts/MooTools-Core-1.5.2.min.js
+Scripts/raygun-setup.min.js
+Scripts/strong-password.min.js
+App_Data/*
+
+/DCA.Web/.sass-cache
+/DCA.Web/media
+/DCA.Web/assets/scripts/libs/jQuery.fileinput2.js
+/DCA.Web/Content/PDFTemplates/.sass-cache
+/DCA.Web.UnitTests/TestFiles/ePrescription.pdf
+
+DCA.Web.UnitTests/TestFiles/*.pdf
+
+DCA.Web/assets/fonts/dca2-icons.eot
+DCA.Web/assets/fonts/dca2-icons.ttf
+DCA.Web/assets/fonts/dca2-icons.woff
+!MimeDetective.dll
+!DCA.WebApi.UnitTests/Files/sample.zip
+.idea
+
+/DCA.Web/assets/css/*.css
+/DCA.Partner/assets/css/*.css
+
+/DCA.Authorization/Web.Local.config
+/DCA.Partner/Web.Local.config
+/DCA.Web/Web.Local.config
+
+/DCA.Web/assets/fonts/dca2-icons.woff
+/DCA.Web/assets/fonts/dca2-icons.eot
+/DCA.Web/assets/fonts/dca2-icons.ttf
+/*.vspx
+/*.psess
+/Save Appt Notes Pdf.vspx
+/Save Appointment Notes 2.vspx
+/Save Appointment Notes 1.vspx
+/Performance1.psess
+/DCA.Partner/assets/css/style.responsive.css
+/DCA.Partner/assets/css/style.css
+
+/DCA.Authorization/Web.Local.config
+*.patch
+/DCA.WebApi/Web.Local.config
+/DCA.Web.UnitTests/app.Local.config
+/.axoCover
+/DCA.Partner/package-lock.json
+/DCA.Web/**/*.pdftemplate
+/DCA.Web.UnitTests/**/*.pdftemplate
+/DCA.WebApi/**/*.pdftemplate
+*.orig
+/DCA.Web/robots.txt
+
+# NCrunch
+*.ncrunch*
+*.crunch.xml

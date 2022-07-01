@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\android.png" />
+    <None Remove="Images\iphone.png" />
+    <None Remove="Images\website.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\android.png" />
+    <Resource Include="Images\iphone.png" />
+    <Resource Include="Images\website.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.11" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OAuthTester.Engine\OAuthTester.Engine.csproj" />
+  </ItemGroup>
+
+</Project>
