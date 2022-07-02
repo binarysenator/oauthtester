@@ -8,14 +8,14 @@
 
   <Identity
     Name="46d5271f-ead3-4379-8f4e-b746db7f015f"
-    Publisher="CN=BenjaminRose"
+    Publisher="CN=Binary Senator"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="46d5271f-ead3-4379-8f4e-b746db7f015f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>OAuthTesterApp</DisplayName>
-    <PublisherDisplayName>BenjaminRose</PublisherDisplayName>
+    <PublisherDisplayName>Binary Senator</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

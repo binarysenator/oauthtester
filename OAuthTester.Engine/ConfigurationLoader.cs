@@ -8,7 +8,7 @@ using Redbridge.IO;
 
 namespace OAuthTester.Engine
 {
-    public class ConfigurationLoader : IConfigurationLoader
+    public class ConfigurationLoader : IConfigurationManager
     {
         public ConfigurationLoader()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using OauthTester.ViewModels;
+using OAuthTesterApp.ViewModels.Commands;
 
 namespace OAuthTester.ViewModels.DesignTime;
 

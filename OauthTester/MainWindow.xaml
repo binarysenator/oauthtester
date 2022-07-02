@@ -10,7 +10,8 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:controls="clr-namespace:OAuthTester.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthTesterMainViewModel, IsDesignTimeCreatable=True}">
+        Title="{Binding Title}" Height="450" Width="800" d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthTesterMainViewModel, IsDesignTimeCreatable=True}" 
+        ShowInTaskbar="True">
     <Window.Resources>
         <converters:ClientImageConverter x:Key="ClientImageConverter"/>
         <converters:ClientNameConverter x:Key="ClientNameConverter"/>

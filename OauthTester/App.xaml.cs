@@ -44,7 +44,7 @@ namespace OauthTester
 
 
             services.AddHttpClient("OAuthClient");
-            services.AddSingleton<IConfigurationLoader, ConfigurationLoader>();
+            services.AddSingleton<IConfigurationManager, ConfigurationLoader>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -55,7 +55,7 @@ namespace OauthTester
 
         protected override void OnExit(ExitEventArgs e)
         {
-            var configurationLoader = _serviceProvider.GetRequiredService<IConfigurationLoader>();
+            var configurationLoader = _serviceProvider.GetRequiredService<IConfigurationManager>();
             configurationLoader.Save();
             base.OnExit(e);
         }

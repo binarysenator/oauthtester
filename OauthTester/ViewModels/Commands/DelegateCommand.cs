@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace OauthTester.ViewModels;
+namespace OAuthTester.ViewModels.Commands;
 
 public class DelegateCommand : ICommand
 {
     private readonly Func<object?, bool>? _canExecute;
-    private Action<object?> _execute;
+    private readonly Action<object?> _execute;
 
     public DelegateCommand(Action<object?> execute)
     {

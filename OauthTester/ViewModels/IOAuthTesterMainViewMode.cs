@@ -1,6 +1,8 @@
-﻿namespace OauthTester.ViewModels;
+﻿using OAuthTester.ViewModels.Dialogue;
 
-public interface IOAuthTesterMainViewMode
+namespace OauthTester.ViewModels;
+
+public interface IOAuthTesterMainViewMode : IWindowViewModel
 {
     bool HasSelection { get; }
 }

@@ -10,6 +10,7 @@ public interface IClientEditorWindowsViewModel : IWindowViewModel
 {
     string? DisplayName { get; set; }
     string? ClientId { get; set; }
+    string? Password { get; set; }
     Guid? AuthenticationServiceId { get; set; }
     Guid? AuthenticationTypeId { get; set; }
     Guid? ClientTypeId { get; set; }

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTesterApp.Dialogues;
+using OAuthTesterApp.ViewModels.Commands;
 using Redbridge;
 
 namespace OAuthTesterApp.ViewModels.Dialogue;
@@ -14,14 +15,14 @@ public class OAuthTesterMainViewModel : ViewModel, IOAuthTesterMainViewMode
 {
     private readonly IApplicationWindowManager _applicationWindowManager;
     private readonly IHttpClientFactory _clientFactory;
-    private readonly IConfigurationLoader _configurationLoader;
+    private readonly IConfigurationManager _configurationLoader;
     private OAuthClientViewModel? _selectedClient = null;
     private readonly DelegateCommand _startCommand;
     private readonly DelegateCommand _stopCommand;
     private readonly DelegateCommand _addCommand;
     private readonly DelegateCommand _deleteCommand;
 
-    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IHttpClientFactory clientFactory, IConfigurationLoader configurationLoader)
+    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IHttpClientFactory clientFactory, IConfigurationManager configurationLoader)
     {
         _applicationWindowManager = applicationWindowManager ?? throw new ArgumentNullException(nameof(applicationWindowManager));
         _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));

@@ -10,4 +10,7 @@ public class AuthenticationServer
 
     [DataMember(Name = "authenticationUrl")]
     public string? AuthenticationUrl { get; set; }
+
+    [DataMember(Name = "display")]
+    public string? DisplayName { get; set; }
 }

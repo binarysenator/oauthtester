@@ -6,22 +6,24 @@ using System.Windows.Input;
 using OAuthTester.Dialogues;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
+using OAuthTester.ViewModels.Commands;
 using Redbridge;
 
 namespace OAuthTester.ViewModels.Dialogue;
 
-public class OAuthTesterMainViewModel : ViewModel, IOAuthTesterMainViewMode
+public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMode
 {
     private readonly IApplicationWindowManager _applicationWindowManager;
     private readonly IHttpClientFactory _clientFactory;
-    private readonly IConfigurationLoader _configurationLoader;
+    private readonly IConfigurationManager _configurationLoader;
     private OAuthClientViewModel? _selectedClient = null;
     private readonly DelegateCommand _startCommand;
     private readonly DelegateCommand _stopCommand;
     private readonly DelegateCommand _addCommand;
     private readonly DelegateCommand _deleteCommand;
+    private string _title;
 
-    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IHttpClientFactory clientFactory, IConfigurationLoader configurationLoader)
+    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IHttpClientFactory clientFactory, IConfigurationManager configurationLoader)
     {
         _applicationWindowManager = applicationWindowManager ?? throw new ArgumentNullException(nameof(applicationWindowManager));
         _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
@@ -53,7 +55,17 @@ public class OAuthTesterMainViewModel : ViewModel, IOAuthTesterMainViewMode
         if (toUpdate == null)
         {
             // Add 
-
+            _configurationLoader.Configuration.Add(configuration);
+        }
+        else
+        {
+            toUpdate.AuthenticationServiceId = configuration.AuthenticationServiceId;
+            toUpdate.ClientId = configuration.ClientId;
+            toUpdate.ClientSecret = configuration.ClientSecret;
+            toUpdate.ClientTypeId = configuration.ClientTypeId;
+            toUpdate.Password = configuration.Password;
+            toUpdate.Username = configuration.Username;
+            toUpdate.RefreshToken = null;
         }
     }
 
@@ -92,4 +104,6 @@ public class OAuthTesterMainViewModel : ViewModel, IOAuthTesterMainViewMode
 
     public ObservableCollection<OAuthClientViewModel> Clients { get; } = new ObservableCollection<OAuthClientViewModel>();
     public bool HasSelection => SelectedClient != null;
+
+    public override string Title => "OAuth2 Client Tester";
 }

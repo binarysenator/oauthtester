@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OAuthTester.ViewModels.Dialogue;
 
 namespace OAuthTester.Dialogues
 {
@@ -19,9 +20,24 @@ namespace OAuthTester.Dialogues
     /// </summary>
     public partial class AuthenticationServerEditorWindow : Window
     {
-        public AuthenticationServerEditorWindow()
+        private AuthenticationServerEditorWindowViewModel? _model;
+
+        public AuthenticationServerEditorWindow(AuthenticationServerEditorWindowViewModel viewModel)
         {
+            if (viewModel == null) throw new ArgumentNullException(nameof(viewModel));
             InitializeComponent();
+            Model = viewModel;
+            DataContext = viewModel;
+        }
+
+        public AuthenticationServerEditorWindowViewModel Model
+        {
+            get => _model;
+            set
+            {
+                _model = value;
+                DataContext = value;
+            }
         }
     }
 }

@@ -6,12 +6,13 @@ using OauthTester.ViewModels;
 using OAuthTester.ViewModels;
 using OAuthTester.ViewModels.DesignTime;
 using OAuthTesterApp.Dialogues;
+using OAuthTesterApp.ViewModels.Commands;
 
 namespace OAuthTesterApp.ViewModels.Dialogue
 {
     public class ClientEditorWindowViewModel : ViewModel, IClientEditorWindowsViewModel
     {
-        private readonly IConfigurationLoader _loader;
+        private readonly IConfigurationManager _loader;
         private readonly IApplicationWindowManager _windowManager;
         private string? _displayName;
         private string? _clientId;
@@ -22,7 +23,7 @@ namespace OAuthTesterApp.ViewModels.Dialogue
         private DelegateCommand _addClientTypeCommand;
         public string Title => "Edit client connection";
 
-        public ClientEditorWindowViewModel(IConfigurationLoader loader, IApplicationWindowManager windowManager)
+        public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager)
         {
             _loader = loader ?? throw new ArgumentNullException(nameof(loader));
             _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));

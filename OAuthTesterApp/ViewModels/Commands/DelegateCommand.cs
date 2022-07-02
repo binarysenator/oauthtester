@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace OauthTester.ViewModels;
+namespace OAuthTesterApp.ViewModels.Commands;
 
 public class DelegateCommand : ICommand
 {

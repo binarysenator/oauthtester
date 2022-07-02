@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using OAuthTester.Engine;
+using OAuthTester.ViewModels.Commands;
 using Redbridge.Identity;
 
 namespace OauthTester.ViewModels;
@@ -16,13 +17,13 @@ public class OAuthClientViewModel : ViewModel, IOAuthClientViewModel
     private readonly OAuth2Client _client;
     private ICommand _toggleStateCommand;
     
-    public OAuthClientViewModel(IHttpClientFactory clientFactory, ClientConfiguration configuration, IConfigurationLoader configurationLoader)
+    public OAuthClientViewModel(IHttpClientFactory clientFactory, ClientConfiguration configuration, IConfigurationManager configurationLoader)
     {
         _client = new OAuth2Client(clientFactory, configuration, configurationLoader);
         OnSetupCommands();
     }
 
-    public OAuthClientViewModel(IHttpClientFactory clientFactory, IConfigurationLoader configurationLoader)
+    public OAuthClientViewModel(IHttpClientFactory clientFactory, IConfigurationManager configurationLoader)
     {
         _client = new OAuth2Client(clientFactory, configurationLoader);
         OnSetupCommands();

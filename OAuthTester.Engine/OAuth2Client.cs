@@ -11,19 +11,19 @@ namespace OAuthTester.Engine
     public class OAuth2Client
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfigurationLoader _configurationLoader;
+        private readonly IConfigurationManager _configurationLoader;
 
         private ClientConfiguration _settings;
         private BehaviorSubject<ClientStatus> _status = new BehaviorSubject<ClientStatus>(ClientStatus.Stopped);
 
-        public OAuth2Client(IHttpClientFactory httpClientFactory, IConfigurationLoader configurationLoader)
+        public OAuth2Client(IHttpClientFactory httpClientFactory, IConfigurationManager configurationLoader)
         {
             _httpClientFactory = httpClientFactory;
             _configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
             _settings = new ClientConfiguration();
         }
 
-        public OAuth2Client(IHttpClientFactory httpClientFactory, ClientConfiguration configuration, IConfigurationLoader configurationLoader)
+        public OAuth2Client(IHttpClientFactory httpClientFactory, ClientConfiguration configuration, IConfigurationManager configurationLoader)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _settings = configuration ?? throw new ArgumentNullException(nameof(configuration));

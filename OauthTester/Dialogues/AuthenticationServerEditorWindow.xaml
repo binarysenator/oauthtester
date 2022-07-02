@@ -4,10 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OAuthTester.Dialogues"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        Title="AuthenticationServerEditorWindow" Height="450" Width="800">
+        Title="{Binding Title}" SizeToContent="WidthAndHeight">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Display Name" Style="{StaticResource HeaderTextBlock}"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTextBox}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Client ID" Style="{StaticResource HeaderTextBlock}"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource EntryTextBox}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Client Secret" Style="{StaticResource HeaderTextBlock}"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource EntryTextBox}"/>
+
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
+            <Button IsCancel="True" Style="{StaticResource CommandButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Cancel</TextBlock>
+                    <fa5:ImageAwesome Icon="Solid_Recycle" Width="22" Foreground="Red"></fa5:ImageAwesome>
+                </StackPanel>
+            </Button>
+            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>OK</TextBlock>
+                    <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

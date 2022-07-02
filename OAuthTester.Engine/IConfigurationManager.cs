@@ -1,6 +1,6 @@
 ﻿namespace OAuthTester.Engine;
 
-public interface IConfigurationLoader
+public interface IConfigurationManager
 {
     void Load();
     void Save();
