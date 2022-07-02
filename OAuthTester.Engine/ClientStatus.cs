@@ -2,6 +2,7 @@
 
 public enum ClientStatus
 {
+    Unavailable,
     Stopped,
     Starting,
     Error,

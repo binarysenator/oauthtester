@@ -13,28 +13,27 @@ namespace OAuthTester.ViewModels.Dialogue;
 
 public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMode
 {
-    private readonly IApplicationWindowManager _applicationWindowManager;
-    private readonly IHttpClientFactory _clientFactory;
     private readonly IConfigurationManager _configurationLoader;
+    private readonly IAuthenticationTypeFactory _authenticationTypeFactory;
     private OAuthClientViewModel? _selectedClient = null;
     private readonly DelegateCommand _startCommand;
     private readonly DelegateCommand _stopCommand;
     private readonly DelegateCommand _addCommand;
     private readonly DelegateCommand _deleteCommand;
-    private string _title;
 
-    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IHttpClientFactory clientFactory, IConfigurationManager configurationLoader)
+    public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IConfigurationManager configurationLoader, IAuthenticationTypeFactory authenticationTypeFactory)
     {
-        _applicationWindowManager = applicationWindowManager ?? throw new ArgumentNullException(nameof(applicationWindowManager));
-        _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
+        if (authenticationTypeFactory == null) throw new ArgumentNullException(nameof(authenticationTypeFactory));
+        var applicationWindowManager1 = applicationWindowManager ?? throw new ArgumentNullException(nameof(applicationWindowManager));
         _configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
+        _authenticationTypeFactory = authenticationTypeFactory;
 
         _addCommand = new DelegateCommand((obj) =>
         {
-            var window = _applicationWindowManager.Create<ClientEditorWindow>();
+            var window = applicationWindowManager1.Create<ClientEditorWindow>();
             window.ClientConfiguration = new ClientConfiguration();
 
-            if (_applicationWindowManager.ShowDialogue(window) ?? false )
+            if (applicationWindowManager1.ShowDialogue(window) ?? false )
             {
                 var configuration = window.ClientConfiguration;
                 AddOrUpdate(configuration);
@@ -71,7 +70,7 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
 
     private OAuthClientViewModel Create(ClientConfiguration configuration)
     {
-        return new OAuthClientViewModel(_clientFactory, _configurationLoader);
+        return new OAuthClientViewModel(configuration, _configurationLoader, _authenticationTypeFactory);
     }
 
     private void OnLoad()
@@ -101,9 +100,7 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
     public ICommand AddCommand => _addCommand;
     public ICommand DeleteCommand => _deleteCommand;
 
-
     public ObservableCollection<OAuthClientViewModel> Clients { get; } = new ObservableCollection<OAuthClientViewModel>();
     public bool HasSelection => SelectedClient != null;
-
     public override string Title => "OAuth2 Client Tester";
 }

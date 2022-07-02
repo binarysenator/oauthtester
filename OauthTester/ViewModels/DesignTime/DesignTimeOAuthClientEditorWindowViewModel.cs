@@ -8,12 +8,13 @@ namespace OAuthTester.ViewModels.DesignTime;
 public class DesignTimeOAuthClientEditorWindowViewModel : IClientEditorWindowsViewModel
 {
     public string Title => "Design Time Client Editor";
-    public string? DisplayName { get; set; }
-    public string? ClientId { get; set; }
+    public string? DisplayName { get; set; } = "iOS App (Development)";
+    public string? ClientId { get; set; } = "iosappclientid";
     public Guid? AuthenticationServiceId { get; set; }
     public Guid? ClientTypeId { get; set; }
     public Guid? AuthenticationTypeId { get; set; }
-    public string? Password { get; set; }
+    public string? Password { get; set; } = "SausagingIsNeverEasy123!";
+    public string? Username { get; set; } = "binarysenator@gmail.com";
 
     public DesignTimeOAuthClientEditorWindowViewModel()
     {
@@ -55,4 +56,6 @@ public class DesignTimeOAuthClientEditorWindowViewModel : IClientEditorWindowsVi
     {
         get { throw new NotImplementedException(); }
     }
+
+    
 }

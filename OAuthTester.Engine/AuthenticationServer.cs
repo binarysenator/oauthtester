@@ -13,4 +13,7 @@ public class AuthenticationServer
 
     [DataMember(Name = "display")]
     public string? DisplayName { get; set; }
+
+    [DataMember(Name = "tokenEndpoint")] 
+    public string? TokenEndpoint { get; set; } = "oauth/token";
 }

@@ -30,7 +30,7 @@ namespace OAuthTester.Dialogues
             DataContext = viewModel;
         }
 
-        public AuthenticationServerEditorWindowViewModel Model
+        public AuthenticationServerEditorWindowViewModel? Model
         {
             get => _model;
             set

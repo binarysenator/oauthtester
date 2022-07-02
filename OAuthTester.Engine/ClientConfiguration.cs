@@ -25,4 +25,6 @@ public class ClientConfiguration
     public string? RefreshToken { get; set; }
     [DataMember(Name = "state")] 
     public ClientStatus State { get; set; } = ClientStatus.Stopped;
+    [DataMember(Name = "authenticationTypeId")]
+    public Guid? AuthenticationTypeId { get; set; }
 }

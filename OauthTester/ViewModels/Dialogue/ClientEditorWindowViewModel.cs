@@ -18,8 +18,10 @@ namespace OAuthTester.ViewModels.Dialogue
     {
         private readonly IConfigurationManager _loader;
         private readonly IApplicationWindowManager _windowManager;
+        private readonly IAuthenticationTypeFactory _authenticationTypeFactory;
         private string? _displayName;
         private string? _clientId;
+        private string? _username;
         private Guid? _authenticationServiceId;
         private Guid? _authenticationTypeId;
         private Guid? _clientTypeId;
@@ -28,16 +30,17 @@ namespace OAuthTester.ViewModels.Dialogue
         private readonly DelegateCommand _addClientTypeCommand;
         public string Title => "Edit client connection";
 
-        public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager)
+        public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager, IAuthenticationTypeFactory authenticationTypeFactory)
         {
             _loader = loader ?? throw new ArgumentNullException(nameof(loader));
-            OnConfigure(_loader);
             _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
+            _authenticationTypeFactory = authenticationTypeFactory;
             _addAuthenticationServerCommand = new DelegateCommand((obj) =>
             {
                 var window = _windowManager.Create<AuthenticationServerEditorWindow>();
                 var outcome = _windowManager.ShowDialogue(window);
-                if (outcome != null && outcome.Value )
+
+                if (outcome != null && outcome.Value && window.Model != null )
                 {
                     var server = new AuthenticationServer()
                     {
@@ -50,12 +53,17 @@ namespace OAuthTester.ViewModels.Dialogue
                 }
             });
             _addClientTypeCommand = new DelegateCommand((obj) => { });
+
+            OnConfigure(_loader);
         }
 
         private void OnConfigure(IConfigurationManager loader)
         {
             var current = loader.Configuration;
             current.AuthenticationServers.ForEach(s => AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(s)));
+
+            var types = _authenticationTypeFactory.GetAll();
+            types.ForEach((type) => AuthenticationTypes.Add(new AuthenticationTypeListItemViewModel() { Id = type.TypeId, DisplayName = type.Name }));
         }
 
         public string? DisplayName
@@ -64,6 +72,16 @@ namespace OAuthTester.ViewModels.Dialogue
             set
             {
                 _displayName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
                 OnPropertyChanged();
             }
         }

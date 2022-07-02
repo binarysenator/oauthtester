@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.Serialization;
+using OAuthTester.Engine.Exceptions;
 using Redbridge.Identity;
 using Redbridge.Identity.OAuthServer;
 using Redbridge.Web.Messaging;
@@ -10,24 +11,16 @@ namespace OAuthTester.Engine
 {
     public class OAuth2Client
     {
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfigurationManager _configurationLoader;
-
+        private readonly IAuthenticationTypeFactory _authenticationTypeFactory;
         private ClientConfiguration _settings;
-        private BehaviorSubject<ClientStatus> _status = new BehaviorSubject<ClientStatus>(ClientStatus.Stopped);
+        private AuthenticationType? _authenticationType;
 
-        public OAuth2Client(IHttpClientFactory httpClientFactory, IConfigurationManager configurationLoader)
+        public OAuth2Client(ClientConfiguration configuration, IConfigurationManager configurationLoader, IAuthenticationTypeFactory authenticationTypeFactory)
         {
-            _httpClientFactory = httpClientFactory;
-            _configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
-            _settings = new ClientConfiguration();
-        }
-
-        public OAuth2Client(IHttpClientFactory httpClientFactory, ClientConfiguration configuration, IConfigurationManager configurationLoader)
-        {
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _settings = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
+            _authenticationTypeFactory = authenticationTypeFactory ?? throw new ArgumentNullException(nameof(authenticationTypeFactory));
         }
 
         public void Configure(ClientConfiguration configuration)
@@ -37,43 +30,30 @@ namespace OAuthTester.Engine
 
         public ClientConfiguration Settings => _settings;
 
-        public async Task Start()
+        public void Start()
         {
-            _status.OnNext(ClientStatus.Starting);
-
-            // First call can't be done on interval as we don't know the interval yet.
-            var service = _configurationLoader.Configuration.AuthenticationServers.FirstOrDefault(auth => auth.Id == _settings.AuthenticationServiceId);
-
-            if (service == null || string.IsNullOrWhiteSpace(service?.AuthenticationUrl) )
+            if (!_settings.AuthenticationTypeId.HasValue)
             {
-                _status.OnNext(ClientStatus.Error);
-                return;
+                throw new OAuthEngineException("Unable to create client, the authentication type has not been supplied.");
             }
 
-            var uri = new Uri(new Uri(service.AuthenticationUrl), "oauth/token");
-            var data = new OAuthAccessTokenRequestData() { ClientId = _settings.ClientId, ClientSecret = _settings.ClientSecret, Email = _settings.Username, Password = _settings.Password, GrantType = GrantTypes.Password };
-            
-            var client = _httpClientFactory.CreateClient("OAuthClient");
-            var response = await client.PostAsync(uri, new FormUrlEncodedContent(data.AsDictionary()));
-            if (response.IsSuccessStatusCode)
+            _authenticationType = _authenticationTypeFactory.Create(_settings.AuthenticationTypeId.Value);
+            if (_authenticationType == null)
             {
-                _status.OnNext(ClientStatus.Running);
+                throw new OAuthEngineException($"Unable to create with type {_settings.AuthenticationTypeId.Value}");
             }
-            else
-            {
-                _status.OnNext(ClientStatus.Error);
-            }
+
+            _authenticationType.Configure(Settings);
+            _authenticationType.Start();
         }
-
-
 
         public void Stop()
-        {
-                
+        {   
+            _authenticationType?.Stop();
         }
 
-        public ClientStatus CurrentStatus => _status.Value;
-        public IObservable<ClientStatus> Status => _status;
+        public ClientStatus CurrentStatus => _authenticationType?.CurrentStatus ?? ClientStatus.Unavailable;
+        public IObservable<ClientStatus>? Status => _authenticationType?.ObservableStatus;
 
     }
 }

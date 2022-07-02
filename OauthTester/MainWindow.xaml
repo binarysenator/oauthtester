@@ -26,7 +26,7 @@
         <Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Width="24" Height="24"></Image>
-                <TextBlock TextAlignment="Center" Margin="10" FontSize="22">Logitbox Authentication Tester</TextBlock>
+                <TextBlock TextAlignment="Center" Margin="10" FontSize="22">OAuth2 Authentication Tester</TextBlock>
             </StackPanel>
         </Grid>
         <Grid Grid.Row ="1">
@@ -74,10 +74,30 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding AddCommand}">_Add</Button>
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding DeleteCommand}">_Delete</Button>
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StartCommand}">_Start</Button>
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StopCommand}">St_op</Button>
+                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding AddCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Add</TextBlock>
+                            <fa5:ImageAwesome Icon="Solid_Plus" Width="16" Foreground="Black"></fa5:ImageAwesome>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding DeleteCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Delete</TextBlock>
+                            <fa5:ImageAwesome Icon="Solid_Recycle" Width="16" Foreground="Orange"></fa5:ImageAwesome>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StartCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
+                            <fa5:ImageAwesome Icon="Solid_PlayCircle" Width="16" Foreground="Green"></fa5:ImageAwesome>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StopCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
+                            <fa5:ImageAwesome Icon="Solid_StopCircle" Width="16" Foreground="Red"></fa5:ImageAwesome>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>

@@ -33,13 +33,13 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
             <Button IsCancel="True" Style="{StaticResource CommandButtonStyle}" Width="80" Background="{x:Null}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>Cancel</TextBlock>
-                    <fa5:ImageAwesome Icon="Solid_Poo" Width="22" Foreground="Red"></fa5:ImageAwesome>
+                    <TextBlock Style="{StaticResource CommandButtonTextStyle}">Cancel</TextBlock>
+                    <fa5:ImageAwesome Icon="Solid_Recycle" Width="22" Foreground="Red"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>
             <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Width="80" Background="{x:Null}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>OK</TextBlock>
+                    <TextBlock Style="{StaticResource CommandButtonTextStyle}">OK</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>

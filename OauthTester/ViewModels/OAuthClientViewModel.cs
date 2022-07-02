@@ -17,21 +17,10 @@ public class OAuthClientViewModel : ViewModel, IOAuthClientViewModel
     private readonly OAuth2Client _client;
     private ICommand _toggleStateCommand;
     
-    public OAuthClientViewModel(IHttpClientFactory clientFactory, ClientConfiguration configuration, IConfigurationManager configurationLoader)
+    public OAuthClientViewModel(ClientConfiguration configuration, IConfigurationManager configurationLoader, IAuthenticationTypeFactory authenticationTypeFactory)
     {
-        _client = new OAuth2Client(clientFactory, configuration, configurationLoader);
-        OnSetupCommands();
-    }
-
-    public OAuthClientViewModel(IHttpClientFactory clientFactory, IConfigurationManager configurationLoader)
-    {
-        _client = new OAuth2Client(clientFactory, configurationLoader);
-        OnSetupCommands();
-    }
-
-    private void OnSetupCommands()
-    {
-        _toggleStateCommand = new DelegateCommand(async (obj) =>
+        _client = new OAuth2Client( configuration, configurationLoader, authenticationTypeFactory);
+        _toggleStateCommand = new DelegateCommand((obj) =>
         {
             if (_client.CurrentStatus == ClientStatus.Running)
             {
@@ -39,12 +28,12 @@ public class OAuthClientViewModel : ViewModel, IOAuthClientViewModel
             }
 
             if (_client.CurrentStatus == ClientStatus.Stopped)
-            {
-                await _client.Start();
+            { 
+                _client.Start();
             }
         });
     }
-
+    
     public string? ClientId
     {
         get => _clientId;

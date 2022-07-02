@@ -28,5 +28,10 @@ namespace OAuthTester.Dialogues
         }
 
         public ClientConfiguration? ClientConfiguration { get; set; } = null;
+
+        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

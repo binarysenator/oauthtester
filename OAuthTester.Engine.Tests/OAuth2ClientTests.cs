@@ -9,9 +9,9 @@ namespace OAuthTester.Engine.Tests
         [Test]
         public void OAuth2Client_Construct_ExpectSuccess()
         {
-            var mockClientFactory = new Mock<IHttpClientFactory>();
             var mockConfigurationLoader = new Mock<IConfigurationManager>();
-            var client = new OAuth2Client(mockClientFactory.Object, mockConfigurationLoader.Object);
+            var mockAuthenticationTypeFactory = new Mock<IAuthenticationTypeFactory>();
+            var client = new OAuth2Client(new ClientConfiguration(), mockConfigurationLoader.Object, mockAuthenticationTypeFactory.Object);
             Assert.IsNotNull(client.Settings);
             Assert.IsNotNull(client.Status);
             Assert.AreEqual(ClientStatus.Stopped, client.CurrentStatus);

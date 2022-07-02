@@ -37,6 +37,8 @@ namespace OauthTester
             services.AddTransient<ClientTypeEditorWindow>();
 
             services.AddSingleton<IApplicationWindowManager, ApplicationWindowManager>();
+            services.AddSingleton<IAuthenticationTypeFactory, AuthenticationTypeFactory>();
+            services.AddTransient<AuthenticationType, ClientSecretAuthenticationType>();
             services.AddSingleton<OAuthTesterMainViewModel>();
             services.AddTransient<ClientEditorWindowViewModel>();
             services.AddTransient<ClientTypeEditorWindowsViewModel>();

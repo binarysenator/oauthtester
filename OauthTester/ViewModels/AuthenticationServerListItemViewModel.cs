@@ -6,7 +6,7 @@ namespace OAuthTester.ViewModels;
 
 public class AuthenticationServerListItemViewModel : ViewModel
 {
-    private Guid? _id;
+    private Guid _id;
     private string? _authenticationUrl;
     private string? _displayName;
     public AuthenticationServerListItemViewModel() { }
@@ -22,7 +22,7 @@ public class AuthenticationServerListItemViewModel : ViewModel
         };
     }
 
-    public Guid? Id
+    public Guid Id
     {
         get => _id;
         set 

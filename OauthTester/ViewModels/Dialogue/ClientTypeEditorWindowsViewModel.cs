@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using OauthTester.ViewModels;
+using OAuthTester.ViewModels.Commands;
 
 namespace OAuthTester.ViewModels.Dialogue
 {
     public class ClientTypeEditorWindowsViewModel : WindowViewModel
     {
+        private readonly IApplicationWindowManager _windowManager;
+        private DelegateCommand _okCommand;
         private string? _displayName;
         private string? _secret;
         private string? _clientId;
 
         public override string Title => "Edit client type";
+
+        public ClientTypeEditorWindowsViewModel(IApplicationWindowManager windowManager)
+        {
+            _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
+            _okCommand = new DelegateCommand((obj) =>
+            {
+                
+            });
+        }
+
+        public ICommand OKCommand => _okCommand;
 
         public string? DisplayName
         {

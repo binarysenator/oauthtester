@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace OAuthTester.ViewModels.DesignTime;
+namespace OAuthTester.ViewModels;
 
 public class AuthenticationTypeListItemViewModel
 {
     public Guid Id { get; set; }
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; } = "No display name";
 }

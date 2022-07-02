@@ -10,14 +10,10 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="{Binding Title}" d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthClientEditorWindowViewModel, IsDesignTimeCreatable=True}">
+    <Window.CommandBindings>
+        <CommandBinding Command="Save" Executed="CommandBinding_OnExecuted"></CommandBinding>
+    </Window.CommandBindings>
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="3"/>
-        </Style>
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="3"/>
         </Style>
@@ -69,24 +65,24 @@
         </DockPanel>
 
         <TextBlock Grid.Column="1" Grid.Row="3" Text="Username (email)" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <TextBox Grid.Column="2" Grid.Row="3"/>
+        <TextBox Grid.Column="2" Grid.Row="3" Style="{StaticResource EntryTextBox}" Text="{Binding Username}"/>
 
         <TextBlock Grid.Column="1" Grid.Row="4" Text="Password" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <TextBox Grid.Column="2" Grid.Row="4"  Text="{Binding Password}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="4"  Style="{StaticResource EntryTextBox}" Text="{Binding Password}"></TextBox>
 
         <TextBlock Grid.Column="1" Grid.Row="5" Text="Display Name" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding DisplayName}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding DisplayName}" Style="{StaticResource EntryTextBox}"></TextBox>
 
         <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
             <Button IsCancel="True" Style="{StaticResource CommandButtonStyle}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>Cancel</TextBlock>
+                    <TextBlock Style="{StaticResource CommandButtonTextStyle}">Cancel</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_Recycle" Width="22" Foreground="Red"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>
-            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}">
+            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Command="Close">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>OK</TextBlock>
+                    <TextBlock Style="{StaticResource CommandButtonTextStyle}">OK</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>
