@@ -32,8 +32,9 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
         {
             var window = applicationWindowManager1.Create<ClientEditorWindow>();
             window.ClientConfiguration = new ClientConfiguration();
+            var result = applicationWindowManager1.ShowDialogue(window);
 
-            if (applicationWindowManager1.ShowDialogue(window) ?? false )
+            if ( result.HasValue && result.Value )
             {
                 var configuration = window.ClientConfiguration;
                 AddOrUpdate(configuration);

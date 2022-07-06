@@ -57,5 +57,10 @@ public class DesignTimeOAuthClientEditorWindowViewModel : IClientEditorWindowsVi
         get { throw new NotImplementedException(); }
     }
 
-    
+    public bool? DialogResult { get; set; }
+
+    public ICommand OkCommand
+    {
+        get { throw new NotImplementedException(); }
+    }
 }

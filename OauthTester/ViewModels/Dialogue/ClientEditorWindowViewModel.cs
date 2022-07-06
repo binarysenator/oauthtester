@@ -28,6 +28,7 @@ namespace OAuthTester.ViewModels.Dialogue
         private string? _password;
         private readonly DelegateCommand _addAuthenticationServerCommand;
         private readonly DelegateCommand _addClientTypeCommand;
+        private ICommand _okCommand;
         public string Title => "Edit client connection";
 
         public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager, IAuthenticationTypeFactory authenticationTypeFactory)
@@ -35,6 +36,12 @@ namespace OAuthTester.ViewModels.Dialogue
             _loader = loader ?? throw new ArgumentNullException(nameof(loader));
             _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
             _authenticationTypeFactory = authenticationTypeFactory;
+
+            _okCommand = new DelegateCommand((obj) =>
+            {
+                DialogResult = true;
+            });
+
             _addAuthenticationServerCommand = new DelegateCommand((obj) =>
             {
                 var window = _windowManager.Create<AuthenticationServerEditorWindow>();
@@ -140,6 +147,9 @@ namespace OAuthTester.ViewModels.Dialogue
         public ObservableCollection<AuthenticationTypeListItemViewModel> AuthenticationTypes { get; } = new ObservableCollection<AuthenticationTypeListItemViewModel>();
         public ICommand AddAuthenticationServerCommand => _addAuthenticationServerCommand;
         public ICommand AddClientTypeCommand => _addClientTypeCommand;
+
+        public bool? DialogResult { get; set; }
+        public ICommand OkCommand => _okCommand;
         public ObservableCollection<ClientTypeListItemViewModel> ClientTypes { get; } = new ObservableCollection<ClientTypeListItemViewModel>();
     }
 }

@@ -5,14 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OAuthTester.Dialogues"
         xmlns:designTime="clr-namespace:OAuthTester.ViewModels.DesignTime"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         SizeToContent="WidthAndHeight" 
         WindowStartupLocation="CenterOwner"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="{Binding Title}" d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthClientEditorWindowViewModel, IsDesignTimeCreatable=True}">
-    <Window.CommandBindings>
-        <CommandBinding Command="Save" Executed="CommandBinding_OnExecuted"></CommandBinding>
-    </Window.CommandBindings>
     <Window.Resources>
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="3"/>
@@ -80,7 +78,13 @@
                     <fa5:ImageAwesome Icon="Solid_Recycle" Width="22" Foreground="Red"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>
-            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Command="Close">
+            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Command="{Binding OkCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:CallMethodAction MethodName="Close" TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+                        </i:CallMethodAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource CommandButtonTextStyle}">OK</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>

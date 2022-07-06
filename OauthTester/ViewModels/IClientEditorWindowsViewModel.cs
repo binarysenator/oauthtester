@@ -20,4 +20,6 @@ public interface IClientEditorWindowsViewModel : IWindowViewModel
     ObservableCollection<AuthenticationTypeListItemViewModel> AuthenticationTypes { get; }
     ICommand AddAuthenticationServerCommand { get; }
     ICommand AddClientTypeCommand { get; }
+    bool? DialogResult { get; }
+    ICommand OkCommand { get; }
 }
