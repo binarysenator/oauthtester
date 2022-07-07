@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
 using System.Windows.Input;
-using OAuthTester.Dialogues;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
