@@ -1,6 +1,6 @@
 ﻿using OauthTester.ViewModels;
 
-namespace OAuthTester.ViewModels.ClientTypes;
+namespace OAuthTester.ViewModels.AuthenticationTypes;
 
 public abstract class AuthenticationTypeViewModel : ViewModel
 {

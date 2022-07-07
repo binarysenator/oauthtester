@@ -1,4 +1,4 @@
-﻿using OAuthTester.ViewModels.Dialogue;
+﻿using OAuthTester.ViewModels;
 
 namespace OauthTester.ViewModels;
 

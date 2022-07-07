@@ -30,14 +30,12 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
 
         _addCommand = new DelegateCommand((obj) =>
         {
-            var window = applicationWindowManager1.Create<ClientEditorWindow>();
-            window.ClientConfiguration = new ClientConfiguration();
-            var result = applicationWindowManager1.ShowDialogue(window);
+            var viewModel = new ClientEditorWindowViewModel(configurationLoader, applicationWindowManager, authenticationTypeFactory);
+            var result = applicationWindowManager1.ShowDialog(viewModel);
 
             if ( result.HasValue && result.Value )
             {
-                var configuration = window.ClientConfiguration;
-                AddOrUpdate(configuration);
+                AddOrUpdate(viewModel.GetClientConfiguration());
             }
         });
         _deleteCommand = new DelegateCommand((obj) => { }, (obj) => SelectedClient != null);
@@ -50,18 +48,16 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
     private void AddOrUpdate(ClientConfiguration configuration)
     {
         if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-        var toUpdate = _configurationLoader.Configuration.Clients.FirstOrDefault(cl => cl.Id == configuration.Id);
+        var toUpdate = _configurationLoader.Current.Clients?.FirstOrDefault(cl => cl.Id == configuration.Id);
 
         if (toUpdate == null)
         {
             // Add 
-            _configurationLoader.Configuration.Add(configuration);
+            _configurationLoader.Current.Add(configuration);
         }
         else
         {
             toUpdate.AuthenticationServiceId = configuration.AuthenticationServiceId;
-            toUpdate.ClientId = configuration.ClientId;
-            toUpdate.ClientSecret = configuration.ClientSecret;
             toUpdate.ClientTypeId = configuration.ClientTypeId;
             toUpdate.Password = configuration.Password;
             toUpdate.Username = configuration.Username;
@@ -77,7 +73,7 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
     private void OnLoad()
     {
         _configurationLoader.Load();
-        var configuration = _configurationLoader.Configuration;
+        var configuration = _configurationLoader.Current;
         configuration.Clients.ForEach(c => Clients.Add(Create(c)));
     }
 

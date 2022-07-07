@@ -4,5 +4,5 @@ public interface IConfigurationManager
 {
     void Load();
     void Save();
-    OAuthTesterConfiguration Configuration { get; }
+    OAuthTesterConfiguration Current { get; }
 }

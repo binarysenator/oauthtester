@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using OAuthTester;
 using OAuthTester.Dialogues;
 using OAuthTester.Engine;
-using OauthTester.ViewModels;
+using OAuthTester.Engine.AuthenticationTypes;
 using OAuthTester.ViewModels.Dialogue;
-using Redbridge.IO;
 
 namespace OauthTester
 {
@@ -24,7 +17,7 @@ namespace OauthTester
 
         public App()
         {
-            ServiceCollection services = new ServiceCollection();
+            var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
         }
@@ -38,12 +31,12 @@ namespace OauthTester
 
             services.AddSingleton<IApplicationWindowManager, ApplicationWindowManager>();
             services.AddSingleton<IAuthenticationTypeFactory, AuthenticationTypeFactory>();
+
             services.AddTransient<AuthenticationType, ClientSecretAuthenticationType>();
             services.AddSingleton<OAuthTesterMainViewModel>();
             services.AddTransient<ClientEditorWindowViewModel>();
             services.AddTransient<ClientTypeEditorWindowsViewModel>();
             services.AddTransient<AuthenticationServerEditorWindowViewModel>();
-
 
             services.AddHttpClient("OAuthClient");
             services.AddSingleton<IConfigurationManager, ConfigurationLoader>();

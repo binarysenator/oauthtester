@@ -1,11 +1,5 @@
-﻿using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using System.Runtime.Serialization;
+﻿using OAuthTester.Engine.AuthenticationTypes;
 using OAuthTester.Engine.Exceptions;
-using Redbridge.Identity;
-using Redbridge.Identity.OAuthServer;
-using Redbridge.Web.Messaging;
-using IHttpClientFactory = System.Net.Http.IHttpClientFactory;
 
 namespace OAuthTester.Engine
 {

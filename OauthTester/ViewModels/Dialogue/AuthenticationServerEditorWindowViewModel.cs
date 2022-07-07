@@ -1,6 +1,7 @@
 ﻿using System;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
+using OAuthTester.ViewModels.Commands;
 
 namespace OAuthTester.ViewModels.Dialogue;
 
@@ -10,8 +11,14 @@ public class AuthenticationServerEditorWindowViewModel : WindowViewModel
     private string? _displayName;
     private string? _serviceUrl;
     public override string Title => "Edit authentication server";
+    private readonly DelegateCommand _okCommand;
 
-    public AuthenticationServerEditorWindowViewModel() { }
+    public AuthenticationServerEditorWindowViewModel()
+    {
+        _okCommand = new DelegateCommand((obj) =>
+        {
+        });
+    }
 
     public static AuthenticationServerEditorWindowViewModel From (AuthenticationServer server)
     {

@@ -1,10 +1,11 @@
-﻿using System.Windows;
-using Redbridge.Linq;
+﻿using OAuthTester.ViewModels.Dialogue;
 
 namespace OAuthTester;
 
 public interface IApplicationWindowManager
 {
-    T Create<T>() where T : Window;
-    bool? ShowDialogue(Window window);
+    bool? ShowDialog (ClientEditorWindowViewModel viewModel);
+    bool? ShowDialog (AuthenticationServerEditorWindowViewModel viewModel);
+    bool? ShowDialog (ClientTypeEditorWindowsViewModel viewModel);
+    
 }

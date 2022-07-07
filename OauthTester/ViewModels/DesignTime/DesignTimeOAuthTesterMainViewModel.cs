@@ -27,4 +27,5 @@ public class DesignTimeOAuthTesterMainViewModel : IOAuthTesterMainViewMode
     public ICommand DeleteCommand => _availableCommand;
     public bool HasSelection => true;
     public string Title => "OAuth2 Authentication Client Tester";
+    public bool? DialogResult => null;
 }

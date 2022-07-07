@@ -3,4 +3,5 @@
 public class DesignTimeAuthenticationServerEditorViewModel : IAuthenticationServerEditorViewModel
 {
     public string Title => "Authentication server editor";
+    public bool? DialogResult => null;
 }

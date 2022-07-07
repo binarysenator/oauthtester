@@ -1,4 +1,4 @@
-﻿namespace OAuthTester.ViewModels.ClientTypes;
+﻿namespace OAuthTester.ViewModels.AuthenticationTypes;
 
 public class WebOnlyAuthenticationTypeViewModel : AuthenticationTypeViewModel
 {

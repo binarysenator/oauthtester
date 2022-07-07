@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OAuthTester.Engine.AuthenticationTypes;
 
 namespace OAuthTester.Engine;
 

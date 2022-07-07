@@ -9,10 +9,6 @@ public class ClientConfiguration
     public Guid Id { get; set; } = Guid.NewGuid();
     [DataMember(Name = "token")]
     public string? Token { get; set; }
-    [DataMember(Name = "clientId")]
-    public string? ClientId { get; set; }
-    [DataMember(Name = "clientSecret")]
-    public string? ClientSecret { get; set; }
     [DataMember(Name = "username")]
     public string? Username { get; set; }
     [DataMember(Name = "password")]

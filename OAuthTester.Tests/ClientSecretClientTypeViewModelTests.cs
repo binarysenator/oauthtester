@@ -1,6 +1,5 @@
-using NuGet.Frameworks;
 using NUnit.Framework;
-using OAuthTester.ViewModels.ClientTypes;
+using OAuthTester.ViewModels.AuthenticationTypes;
 
 namespace OAuthTester.Tests
 {
@@ -13,8 +12,6 @@ namespace OAuthTester.Tests
             Assert.IsTrue(viewModel.ShowClientId);
             Assert.IsTrue(viewModel.ShowPassword);
             Assert.IsTrue(viewModel.ShowSecret);
-
-
         }
     }
 }

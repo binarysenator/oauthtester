@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
@@ -24,7 +20,7 @@ namespace OAuthTester.ViewModels.Dialogue
             _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
             _okCommand = new DelegateCommand((obj) =>
             {
-                
+                DialogResult = true;
             });
         }
 

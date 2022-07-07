@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
 
-namespace OAuthTester.Engine
+namespace OAuthTester.Engine.AuthenticationTypes
 {
     public abstract class AuthenticationType
     {
@@ -17,7 +14,7 @@ namespace OAuthTester.Engine
         private Task? _authenticationTask;
         private bool _isRunning = false;
 
-        protected AuthenticationType (IHttpClientFactory clientFactory, IConfigurationManager configurationManager)
+        protected AuthenticationType(IHttpClientFactory clientFactory, IConfigurationManager configurationManager)
         {
             _configurationManager = configurationManager ?? throw new ArgumentNullException(nameof(configurationManager));
             ClientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
@@ -29,6 +26,7 @@ namespace OAuthTester.Engine
         }
 
         protected IHttpClientFactory ClientFactory { get; }
+        protected OAuthTesterConfiguration Configuration => _configurationManager.Current;
 
         public void Start()
         {
@@ -41,7 +39,7 @@ namespace OAuthTester.Engine
             }
 
             // First call can't be done on interval as we don't know the interval yet.
-            Server = _configurationManager.Configuration?.AuthenticationServers?.FirstOrDefault(auth => auth.Id == Settings.AuthenticationServiceId);
+            Server = _configurationManager.Current?.AuthenticationServers?.FirstOrDefault(auth => auth.Id == Settings.AuthenticationServiceId);
 
             if (Server == null || string.IsNullOrWhiteSpace(Server?.AuthenticationUrl) || !Settings.ClientTypeId.HasValue)
             {
@@ -50,7 +48,18 @@ namespace OAuthTester.Engine
             }
 
             _isRunning = true;
-            _authenticationTask = OnStart();
+            var clientType = GetClientType(Settings.ClientTypeId.Value);
+            _authenticationTask = OnStart(clientType);
+        }
+
+        protected virtual ClientType GetClientType(Guid clientTypeId)
+        {
+            var type = Configuration.ClientTypes?.FirstOrDefault(ct => ct.Id == clientTypeId);
+            if (type == null)
+            {
+                throw new UnknownClientTypeException(clientTypeId);
+            }
+            return type;
         }
 
         protected bool IsRunning => _isRunning;
@@ -63,7 +72,7 @@ namespace OAuthTester.Engine
             OnStop();
         }
 
-        protected abstract Task OnStart();
+        protected abstract Task OnStart(ClientType clientType);
 
         protected virtual void OnStop()
         {

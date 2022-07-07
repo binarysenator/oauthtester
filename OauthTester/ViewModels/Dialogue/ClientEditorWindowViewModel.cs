@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using OAuthTester.Dialogues;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
@@ -28,7 +23,7 @@ namespace OAuthTester.ViewModels.Dialogue
         private string? _password;
         private readonly DelegateCommand _addAuthenticationServerCommand;
         private readonly DelegateCommand _addClientTypeCommand;
-        private ICommand _okCommand;
+        private readonly DelegateCommand _okCommand;
         public string Title => "Edit client connection";
 
         public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager, IAuthenticationTypeFactory authenticationTypeFactory)
@@ -44,18 +39,18 @@ namespace OAuthTester.ViewModels.Dialogue
 
             _addAuthenticationServerCommand = new DelegateCommand((obj) =>
             {
-                var window = _windowManager.Create<AuthenticationServerEditorWindow>();
-                var outcome = _windowManager.ShowDialogue(window);
+                var model = new AuthenticationServerEditorWindowViewModel();
+                var outcome = _windowManager.ShowDialog(model);
 
-                if (outcome != null && outcome.Value && window.Model != null )
+                if (outcome != null && outcome.Value )
                 {
                     var server = new AuthenticationServer()
                     {
-                        Id = window.Model.Id,
-                        AuthenticationUrl = window.Model.AuthenticationUrl,
-                        DisplayName = window.Model.DisplayName
+                        Id = model.Id,
+                        AuthenticationUrl = model.AuthenticationUrl,
+                        DisplayName = model.DisplayName
                     };
-                    _loader.Configuration.Add(server);
+                    _loader.Current.Add(server);
                     AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(server));
                 }
             });
@@ -66,7 +61,7 @@ namespace OAuthTester.ViewModels.Dialogue
 
         private void OnConfigure(IConfigurationManager loader)
         {
-            var current = loader.Configuration;
+            var current = loader.Current;
             current.AuthenticationServers.ForEach(s => AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(s)));
 
             var types = _authenticationTypeFactory.GetAll();
@@ -151,5 +146,16 @@ namespace OAuthTester.ViewModels.Dialogue
         public bool? DialogResult { get; set; }
         public ICommand OkCommand => _okCommand;
         public ObservableCollection<ClientTypeListItemViewModel> ClientTypes { get; } = new ObservableCollection<ClientTypeListItemViewModel>();
+
+        public ClientConfiguration GetClientConfiguration()
+        {
+            return new ClientConfiguration()
+            {
+                Id = Guid.NewGuid(),
+                AuthenticationServiceId = AuthenticationServiceId,
+                ClientTypeId = ClientTypeId,
+                AuthenticationTypeId = AuthenticationTypeId,
+            };
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OAuthTester.Engine;
+﻿using OAuthTester.Engine.AuthenticationTypes;
+
+namespace OAuthTester.Engine;
 
 public interface IAuthenticationTypeFactory
 {

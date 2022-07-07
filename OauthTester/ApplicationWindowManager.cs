@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Accessibility;
-using Microsoft.Extensions.DependencyInjection;
+using OAuthTester.Dialogues;
+using OAuthTester.ViewModels;
+using OAuthTester.ViewModels.Dialogue;
 
 namespace OAuthTester
 {
@@ -18,15 +15,31 @@ namespace OAuthTester
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        public T Create<T>() where T : Window
+        private bool? ShowDialog<TView> (IWindowViewModel viewModel) where TView: Window, new()
         {
-            var window = _serviceProvider.GetRequiredService<T>();
-            return window;
+            var window = new TView
+            {
+                DataContext = viewModel,
+                Owner = Application.Current.MainWindow
+            };
+            
+            window.ShowDialog();
+            return viewModel.DialogResult;
         }
 
-        public bool? ShowDialogue(Window window)
+        public bool? ShowDialog(ClientEditorWindowViewModel viewModel)
         {
-            return window.ShowDialog();
+            return ShowDialog<ClientEditorWindow>(viewModel);
+        }
+
+        public bool? ShowDialog(AuthenticationServerEditorWindowViewModel viewModel)
+        {
+            return ShowDialog<AuthenticationServerEditorWindow>(viewModel);
+        }
+
+        public bool? ShowDialog(ClientTypeEditorWindowsViewModel viewModel)
+        {
+            return ShowDialog<ClientTypeEditorWindow>(viewModel);
         }
     }
 }

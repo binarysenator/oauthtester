@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Redbridge.IO;
+﻿using Newtonsoft.Json;
 
 namespace OAuthTester.Engine
 {
@@ -12,10 +6,10 @@ namespace OAuthTester.Engine
     {
         public ConfigurationLoader()
         {
-            Configuration = OAuthTesterConfiguration.New();
+            Current = OAuthTesterConfiguration.New();
         }
 
-        public OAuthTesterConfiguration? Configuration { get; private set; }
+        public OAuthTesterConfiguration Current { get; private set; }
 
         public void Load()
         {
@@ -24,13 +18,17 @@ namespace OAuthTester.Engine
             {
                 using var streamReader = File.OpenText("configuration.json");
                 var content = streamReader.ReadToEnd();
-                Configuration = JsonConvert.DeserializeObject<OAuthTesterConfiguration>(content);
+                var instance = JsonConvert.DeserializeObject<OAuthTesterConfiguration>(content);
+                if (instance != null)
+                {
+                    Current = instance;
+                }
             }
         }
 
         public void Save()
         {
-            var configurationText = JsonConvert.SerializeObject(Configuration);
+            var configurationText = JsonConvert.SerializeObject(Current);
             if (File.Exists("configuration.json"))
             {
                 File.Delete("configuration.json");

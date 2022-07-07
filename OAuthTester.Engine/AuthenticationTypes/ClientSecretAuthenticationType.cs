@@ -1,6 +1,6 @@
 ﻿using Redbridge.Identity;
 
-namespace OAuthTester.Engine;
+namespace OAuthTester.Engine.AuthenticationTypes;
 
 public class ClientSecretAuthenticationType : AuthenticationType
 {
@@ -9,10 +9,13 @@ public class ClientSecretAuthenticationType : AuthenticationType
     public override string Name => "Client Secret";
     public ClientSecretAuthenticationType(IHttpClientFactory clientFactory, IConfigurationManager configurationManager) : base(clientFactory, configurationManager) { }
 
-    protected override async Task OnStart()
+    protected override async Task OnStart(ClientType clientType)
     {
+        if (Settings == null) throw new NotSupportedException();
+        if ( Server == null ) throw new NotSupportedException();
+        
         var uri = new Uri(new Uri(Server.AuthenticationUrl), Server.TokenEndpoint ?? string.Empty);
-        var data = new OAuthAccessTokenRequestData() { ClientId = Settings.ClientId, ClientSecret = Settings.ClientSecret, Email = Settings.Username, Password = Settings.Password, GrantType = GrantTypes.Password };
+        var data = new OAuthAccessTokenRequestData() { ClientId = clientType.ClientId, ClientSecret = clientType.Secret, Email = Settings.Username, Password = Settings.Password, GrantType = GrantTypes.Password };
 
         var client = ClientFactory.CreateClient("OAuthClient");
         var response = await client.PostAsync(uri, new FormUrlEncodedContent(data.AsDictionary()));
