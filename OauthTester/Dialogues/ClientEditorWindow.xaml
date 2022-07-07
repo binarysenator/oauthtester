@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OAuthTester.Dialogues"
         xmlns:designTime="clr-namespace:OAuthTester.ViewModels.DesignTime"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         SizeToContent="WidthAndHeight" 
@@ -53,12 +52,14 @@
 
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Client type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
         <DockPanel Grid.Column="2" Grid.Row="2">
-            <Button Width="20" DockPanel.Dock="Right" Margin="2"  Background="{x:Null}" BorderBrush="{x:Null}">
+            <Button Width="20" DockPanel.Dock="Right" Margin="2"  BorderBrush="{x:Null}" Style="{StaticResource CommandButtonStyle}">
                 <fa5:ImageAwesome Icon="Solid_PlusCircle" Foreground="Green"></fa5:ImageAwesome>
             </Button>
             <ListBox  ItemsSource="{Binding ClientTypes}" 
                       DisplayMemberPath="DisplayName" 
-                      SelectedItem="{Binding ClientTypeId}"></ListBox>
+                      SelectedItem="{Binding ClientTypeId}">
+
+            </ListBox>
             
         </DockPanel>
 

@@ -18,7 +18,7 @@ public class AuthenticationServerListItemViewModel : ViewModel
         {
             Id = server.Id,
             AuthenticationUrl = server.AuthenticationUrl,
-            DisplayName = server.DisplayName,
+            DisplayName = server.Name,
         };
     }
 

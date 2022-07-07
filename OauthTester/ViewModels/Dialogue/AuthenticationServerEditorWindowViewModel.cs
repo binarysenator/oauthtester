@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Windows.Input;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
+using OAuthTester.ViewModels.DesignTime;
 
 namespace OAuthTester.ViewModels.Dialogue;
 
-public class AuthenticationServerEditorWindowViewModel : WindowViewModel
+public class AuthenticationServerEditorWindowViewModel : WindowViewModel, IAuthenticationServerEditorViewModel
 {
     private Guid _id;
     private string? _displayName;
@@ -17,6 +19,7 @@ public class AuthenticationServerEditorWindowViewModel : WindowViewModel
     {
         _okCommand = new DelegateCommand((obj) =>
         {
+            DialogResult = true;
         });
     }
 
@@ -26,10 +29,12 @@ public class AuthenticationServerEditorWindowViewModel : WindowViewModel
         return new AuthenticationServerEditorWindowViewModel()
         {
             Id = server.Id,
-            DisplayName = server.DisplayName,
+            DisplayName = server.Name,
             AuthenticationUrl = server.AuthenticationUrl,
         };
     }
+
+    public ICommand OKCommand => _okCommand;
 
     public Guid Id
     {

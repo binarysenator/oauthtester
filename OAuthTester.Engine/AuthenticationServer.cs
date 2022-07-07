@@ -12,7 +12,7 @@ public class AuthenticationServer
     public string? AuthenticationUrl { get; set; }
 
     [DataMember(Name = "display")]
-    public string? DisplayName { get; set; }
+    public string? Name { get; set; }
 
     [DataMember(Name = "tokenEndpoint")] 
     public string? TokenEndpoint { get; set; } = "oauth/token";

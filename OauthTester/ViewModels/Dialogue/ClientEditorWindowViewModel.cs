@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Concurrency;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Windows.Input;
+using System.Windows.Threading;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
@@ -24,6 +28,7 @@ namespace OAuthTester.ViewModels.Dialogue
         private readonly DelegateCommand _addAuthenticationServerCommand;
         private readonly DelegateCommand _addClientTypeCommand;
         private readonly DelegateCommand _okCommand;
+        private readonly CompositeDisposable _compositeDisposable = new();
         public string Title => "Edit client connection";
 
         public ClientEditorWindowViewModel(IConfigurationManager loader, IApplicationWindowManager windowManager, IAuthenticationTypeFactory authenticationTypeFactory)
@@ -42,21 +47,59 @@ namespace OAuthTester.ViewModels.Dialogue
                 var model = new AuthenticationServerEditorWindowViewModel();
                 var outcome = _windowManager.ShowDialog(model);
 
-                if (outcome != null && outcome.Value )
+                if (outcome == null || !outcome.Value) return;
+                var server = new AuthenticationServer()
                 {
-                    var server = new AuthenticationServer()
-                    {
-                        Id = model.Id,
-                        AuthenticationUrl = model.AuthenticationUrl,
-                        DisplayName = model.DisplayName
-                    };
-                    _loader.Current.Add(server);
-                    AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(server));
-                }
+                    Id = model.Id,
+                    AuthenticationUrl = model.AuthenticationUrl,
+                    Name = model.DisplayName
+                };
+                _loader.Current.Add(server);
             });
-            _addClientTypeCommand = new DelegateCommand((obj) => { });
+
+            _addClientTypeCommand = new DelegateCommand((obj) =>
+            {
+                var model = new ClientTypeEditorWindowsViewModel();
+                var outcome = _windowManager.ShowDialog(model);
+
+                if (outcome == null || !outcome.Value) return;
+                var clientType = new ClientType()
+                {
+                    Id = model.Id,
+                    ClientId = model.ClientId ?? string.Empty,
+                    Name = model.DisplayName ?? "No name",
+                };
+                _loader.Current.Add(clientType);
+            });
 
             OnConfigure(_loader);
+
+            ConfigureObservables();
+        }
+
+        private void ConfigureObservables()
+        {
+            
+            var configuration = _loader.Current;
+            _compositeDisposable.Add(configuration.AuthenticationServersObservable
+                //.ObserveOn(DispatcherScheduler)
+                .Subscribe(s =>
+                {
+                    if (s.Type == ChangeType.Added)
+                    {
+                        AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(s.Item));
+                    }
+                }));
+
+            _compositeDisposable.Add(configuration.ClientTypesObservable
+                //.ObserveOnDispatcher()
+                .Subscribe(s =>
+                {
+                    if (s.Type == ChangeType.Added)
+                    {
+                        ClientTypes.Add(ClientTypeListItemViewModel.From(s.Item));
+                    }
+                }));
         }
 
         private void OnConfigure(IConfigurationManager loader)

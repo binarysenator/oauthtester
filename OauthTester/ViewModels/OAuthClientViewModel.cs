@@ -1,9 +1,6 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using OAuthTester.Engine;
 using OAuthTester.ViewModels.Commands;
-using Redbridge.Identity;
 
 namespace OauthTester.ViewModels;
 
@@ -33,7 +30,17 @@ public class OAuthClientViewModel : ViewModel, IOAuthClientViewModel
             }
         });
     }
-    
+
+    public void Start()
+    {
+        _client.Start();
+    }
+
+    public void Stop()
+    {
+        _client.Stop();
+    }
+
     public string? ClientId
     {
         get => _clientId;
@@ -89,5 +96,5 @@ public class OAuthClientViewModel : ViewModel, IOAuthClientViewModel
     }
 
     public bool IsRunning => _client.CurrentStatus == ClientStatus.Running;
-    public bool IsStopped => _client.CurrentStatus == ClientStatus.Stopped || _client.CurrentStatus == ClientStatus.Error;
+    public bool IsStopped => _client.CurrentStatus is ClientStatus.Stopped or ClientStatus.Error;
 }

@@ -7,7 +7,6 @@ namespace OAuthTester.ViewModels.Dialogue
 {
     public class ClientTypeEditorWindowsViewModel : WindowViewModel
     {
-        private readonly IApplicationWindowManager _windowManager;
         private DelegateCommand _okCommand;
         private string? _displayName;
         private string? _secret;
@@ -15,9 +14,8 @@ namespace OAuthTester.ViewModels.Dialogue
 
         public override string Title => "Edit client type";
 
-        public ClientTypeEditorWindowsViewModel(IApplicationWindowManager windowManager)
+        public ClientTypeEditorWindowsViewModel()
         {
-            _windowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
             _okCommand = new DelegateCommand((obj) =>
             {
                 DialogResult = true;
@@ -55,5 +53,7 @@ namespace OAuthTester.ViewModels.Dialogue
                 OnPropertyChanged();
             }
         }
+
+        public Guid Id { get; set; }
     }
 }

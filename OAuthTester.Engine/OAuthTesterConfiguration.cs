@@ -7,19 +7,19 @@ namespace OAuthTester.Engine;
 [DataContract]
 public class OAuthTesterConfiguration
 {
-    private readonly List<AuthenticationServer> _servers = new List<AuthenticationServer>();
-    private readonly List<ClientConfiguration> _clients = new List<ClientConfiguration>();
-    private readonly List<ClientType> _clientTypes = new List<ClientType>();
-    private readonly IObservable<AuthenticationServer> _serversObservable;
-    private readonly IObservable<ClientConfiguration> _clientsObservable;
-    private readonly Subject<AuthenticationServer> _serversSubject = new Subject<AuthenticationServer>();
-    private readonly Subject<ClientConfiguration> _clientsSubject = new Subject<ClientConfiguration>();
+    private readonly List<AuthenticationServer> _servers = new();
+    private readonly List<ClientConfiguration> _clients = new();
+    private readonly List<ClientType> _clientTypes = new();
 
+    private readonly Subject<Change<AuthenticationServer>> _serversSubject = new();
+    private readonly Subject<Change<ClientConfiguration>> _clientsSubject = new();
+    private readonly Subject<Change<ClientType>> _clientTypesSubject = new();
     
     public OAuthTesterConfiguration()
     {
-        _serversObservable = Observable.Defer(() => _servers.ToObservable()).Merge(_serversSubject);
-        _clientsObservable = Observable.Defer(() => _clients.ToObservable()).Merge(_clientsSubject);
+        AuthenticationServersObservable = Observable.Defer(() => _servers.ToObservable().Select(s => new Change<AuthenticationServer>())).Merge(_serversSubject);
+        ClientsObservable = Observable.Defer(() => _clients.ToObservable().Select(s => new Change<ClientConfiguration>())).Merge(_clientsSubject);
+        ClientTypesObservable = Observable.Defer(() => _clientTypes.ToObservable().Select(s => new Change<ClientType>())).Merge(_clientTypesSubject);
     }
 
     [DataMember(Name = "clients")]
@@ -36,6 +36,13 @@ public class OAuthTesterConfiguration
 
     [DataMember(Name = "selectedClientId")]
     public Guid? SelectedClientId { get; set; }
+
+    [IgnoreDataMember]
+    public IObservable<Change<AuthenticationServer>> AuthenticationServersObservable { get; }
+    [IgnoreDataMember]
+    public IObservable<Change<ClientConfiguration>> ClientsObservable { get; }
+    [IgnoreDataMember]
+    public IObservable<Change<ClientType>> ClientTypesObservable { get; }
 
     [DataMember(Name = "servers")]
     public AuthenticationServer[]? AuthenticationServers
@@ -73,15 +80,18 @@ public class OAuthTesterConfiguration
     public void Add(AuthenticationServer authenticationServer)
     {
         _servers.Add(authenticationServer);
+        _serversSubject.OnNext(Change.Add(authenticationServer));
     }
 
     public void Add(ClientConfiguration configuration)
     {
         _clients.Add(configuration);
+        _clientsSubject.OnNext(Change.Add(configuration));
     }
 
     public void Add(ClientType configuration)
     {
         _clientTypes.Add(configuration);
+        _clientTypesSubject.OnNext(Change.Add(configuration));
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Windows.Input;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
@@ -13,11 +14,12 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
 {
     private readonly IConfigurationManager _configurationLoader;
     private readonly IAuthenticationTypeFactory _authenticationTypeFactory;
-    private OAuthClientViewModel? _selectedClient = null;
+    private OAuthClientViewModel? _selectedClient;
     private readonly DelegateCommand _startCommand;
     private readonly DelegateCommand _stopCommand;
     private readonly DelegateCommand _addCommand;
     private readonly DelegateCommand _deleteCommand;
+    private readonly CompositeDisposable _compositeDisposable = new();
 
     public OAuthTesterMainViewModel(IApplicationWindowManager applicationWindowManager, IConfigurationManager configurationLoader, IAuthenticationTypeFactory authenticationTypeFactory)
     {
@@ -36,8 +38,14 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
                 AddOrUpdate(viewModel.GetClientConfiguration());
             }
         });
-        _deleteCommand = new DelegateCommand((obj) => { }, (obj) => SelectedClient != null);
-        _startCommand = new DelegateCommand((obj) => { },(obj) => SelectedClient?.IsStopped ?? false);
+        _deleteCommand = new DelegateCommand((obj) =>
+        {
+
+        }, (obj) => SelectedClient != null);
+        _startCommand = new DelegateCommand((obj) =>
+        {
+            
+        },(obj) => SelectedClient?.IsStopped ?? false);
         _stopCommand = new DelegateCommand((obj) => { }, (obj) => SelectedClient?.IsRunning ?? false);
 
         OnLoad();
@@ -72,7 +80,8 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
     {
         _configurationLoader.Load();
         var configuration = _configurationLoader.Current;
-        configuration.Clients.ForEach(c => Clients.Add(Create(c)));
+
+        //configuration.AuthenticationServers
     }
 
     public OAuthClientViewModel? SelectedClient

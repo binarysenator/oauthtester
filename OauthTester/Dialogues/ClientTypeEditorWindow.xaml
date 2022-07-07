@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OAuthTester.Dialogues"
         xmlns:designTime="clr-namespace:OAuthTester.ViewModels.DesignTime"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
@@ -31,13 +32,19 @@
         <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource EntryTextBox}"/>
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
-            <Button IsCancel="True" Style="{StaticResource CommandButtonStyle}" Width="80" Background="{x:Null}">
+            <Button IsCancel="True" Style="{StaticResource CommandButtonStyle}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource CommandButtonTextStyle}">Cancel</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_Recycle" Width="22" Foreground="Red"></fa5:ImageAwesome>
                 </StackPanel>
             </Button>
-            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Width="80" Background="{x:Null}">
+            <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Click">
+                        <b:CallMethodAction MethodName="Close" TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+                        </b:CallMethodAction>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource CommandButtonTextStyle}">OK</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>

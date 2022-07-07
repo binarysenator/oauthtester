@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OAuthTester.Dialogues"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         Title="{Binding Title}" SizeToContent="WidthAndHeight">
@@ -36,6 +37,12 @@
                 </StackPanel>
             </Button>
             <Button IsDefault="True" Style="{StaticResource CommandButtonStyle}" Command="{Binding OKCommand}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Click">
+                        <b:CallMethodAction MethodName="Close" TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+                        </b:CallMethodAction>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource CommandButtonTextStyle}">OK</TextBlock>
                     <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="22" Foreground="Green"></fa5:ImageAwesome>
