@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
+using Microsoft.UI.Xaml.Data;
 
-namespace OAuthTester.Converters;
+namespace OAuthTester.WinUI.Converters;
 
 public class ClientImageConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object parameter, string culture)
     {
         var resourceKey = string.Empty;
 
@@ -36,11 +33,12 @@ public class ClientImageConverter : IValueConverter
             return null;
         }
 
-        var resource = Application.Current.FindResource(resourceKey);
-        return resource as ImageSource;
+        //var resource = Application.Current.FindResource(resourceKey);
+        //return resource as ImageSource;
+        return value;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object value, Type targetType, object parameter, string culture)
     {
         throw new NotImplementedException();
     }

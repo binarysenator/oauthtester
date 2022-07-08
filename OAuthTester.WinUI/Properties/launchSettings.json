@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "OAuthTester.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "OAuthTester.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -8,7 +8,6 @@
         xmlns:converters="clr-namespace:OAuthTester.Converters"
         xmlns:designTime="clr-namespace:OAuthTester.ViewModels.DesignTime"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        xmlns:controls="clr-namespace:OAuthTester.Controls"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800" d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthTesterMainViewModel, IsDesignTimeCreatable=True}" 
         ShowInTaskbar="True">
@@ -129,7 +128,6 @@
                     <Button Width="48" Height="28" BorderBrush="{x:Null}" Background="{x:Null}" Margin="5">
                         <fa5:ImageAwesome Icon="Solid_PlayCircle" Foreground="LimeGreen"></fa5:ImageAwesome>
                     </Button>
-                    <controls:ProgressControl/>
                 </StackPanel>
                 <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource InfoHeaderTextBlock}">Client ID</TextBlock>
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ClientId}"></TextBlock>
