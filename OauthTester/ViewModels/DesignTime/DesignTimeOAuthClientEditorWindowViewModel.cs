@@ -63,4 +63,10 @@ public class DesignTimeOAuthClientEditorWindowViewModel : IClientEditorWindowsVi
     {
         get { throw new NotImplementedException(); }
     }
+
+    public AuthenticationTypeListItemViewModel SelectedAuthenticationType
+    {
+        get;
+        set;
+    }
 }

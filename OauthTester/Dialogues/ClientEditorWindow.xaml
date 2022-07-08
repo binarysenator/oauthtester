@@ -36,18 +36,25 @@
             <Button Width="20" DockPanel.Dock="Right" Margin="2" Command="{Binding AddAuthenticationServerCommand}" Background="{x:Null}" BorderBrush="{x:Null}">
                 <fa5:ImageAwesome Icon="Solid_PlusCircle" Foreground="Green"></fa5:ImageAwesome>
             </Button>
-            <ListBox ItemsSource="{Binding AuthenticationServers}" 
-                     DisplayMemberPath="DisplayName" 
-                     SelectedItem="{Binding AuthenticationServiceId}"></ListBox>
+            <ComboBox ItemsSource="{Binding AuthenticationServers}" 
+                     DisplayMemberPath="DisplayName"
+                     SelectedValuePath="Id"
+                     SelectedItem="{Binding AuthenticationServiceId}"  IsEditable="False" Height="26" Margin="3"></ComboBox>
 
         </DockPanel>
 
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Authentication type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
         <DockPanel Grid.Column="2" Grid.Row="1">
             
-            <ListBox ItemsSource="{Binding AuthenticationTypes}" 
-                     DisplayMemberPath="DisplayName" 
-                     SelectedItem="{Binding AuthenticationTypeId}"></ListBox>
+            <ComboBox ItemsSource="{Binding AuthenticationTypes}" 
+                     DisplayMemberPath="DisplayName"
+                     IsSynchronizedWithCurrentItem="True"
+                     SelectedItem="{Binding SelectedAuthenticationType, Mode=TwoWay}" 
+                     IsEditable="False"
+                     Height="26" 
+                     Margin="3">
+
+            </ComboBox>
         </DockPanel>
 
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Client type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
@@ -55,11 +62,11 @@
             <Button Width="20" DockPanel.Dock="Right" Margin="2"  BorderBrush="{x:Null}" Style="{StaticResource CommandButtonStyle}">
                 <fa5:ImageAwesome Icon="Solid_PlusCircle" Foreground="Green"></fa5:ImageAwesome>
             </Button>
-            <ListBox  ItemsSource="{Binding ClientTypes}" 
+            <ComboBox ItemsSource="{Binding ClientTypes}" IsEditable="False" Height="26" Margin="3"
                       DisplayMemberPath="DisplayName" 
+                      SelectedValuePath="Id"
                       SelectedItem="{Binding ClientTypeId}">
-
-            </ListBox>
+            </ComboBox>
             
         </DockPanel>
 

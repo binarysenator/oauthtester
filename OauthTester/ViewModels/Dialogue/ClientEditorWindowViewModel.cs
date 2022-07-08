@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows.Input;
-using System.Windows.Threading;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
@@ -79,7 +77,6 @@ namespace OAuthTester.ViewModels.Dialogue
 
         private void ConfigureObservables()
         {
-            
             var configuration = _loader.Current;
             _compositeDisposable.Add(configuration.AuthenticationServersObservable
                 //.ObserveOn(DispatcherScheduler)
@@ -149,6 +146,14 @@ namespace OAuthTester.ViewModels.Dialogue
                 OnPropertyChanged();
             }
         }
+
+        public AuthenticationServerListItemViewModel SelectedServer
+        {
+            get;
+            set;
+        }
+
+        public AuthenticationTypeListItemViewModel SelectedAuthenticationType { get; set; }
 
         public Guid? AuthenticationServiceId
         {
