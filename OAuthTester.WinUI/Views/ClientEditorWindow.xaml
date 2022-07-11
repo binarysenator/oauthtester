@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:designTime="using:OAuthTester.WinUI.ViewModels.DesignTime" 
         xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-               mc:Ignorable="d">
+        mc:Ignorable="d" PrimaryButtonCommand="{Binding OKCommand}"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthClientEditorWindowViewModel, IsDesignTimeCreatable=True}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -23,36 +24,52 @@
 
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Authentication server" Style="{StaticResource HeaderTextBlock}"></TextBlock>
         <controls:DockPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" LastChildFill="True">
-            <Button controls:DockPanel.Dock="Right" Width="20" Margin="2" Command="{Binding AddAuthenticationServerCommand}" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Button controls:DockPanel.Dock="Right" 
+                    Width="20" Height="20" 
+                    Margin="2" 
+                    Command="{Binding AddAuthenticationServerCommand}" 
+                    Style="{StaticResource CommandButtonStyle}">
+                <FontIcon FontFamily="{StaticResource FontAwesome}" Glyph="&#xf728;"/>
             </Button>
             <ComboBox ItemsSource="{Binding AuthenticationServers}" 
                      DisplayMemberPath="DisplayName"
                      SelectedValuePath="Id"
-                     SelectedItem="{Binding AuthenticationServiceId}"  IsEditable="False" Height="26" Margin="3"></ComboBox>
+                     SelectedItem="{Binding AuthenticationServiceId}"  
+                     HorizontalAlignment="Stretch"
+                     IsEditable="False" 
+                     Height="26" 
+                     Margin="3">
+            </ComboBox>
         </controls:DockPanel>
 
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Authentication type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <!--<controls:DockPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" LastChildFill="True">
+        <controls:DockPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" LastChildFill="True">
             
             <ComboBox ItemsSource="{Binding AuthenticationTypes}" 
-                     DisplayMemberPath="DisplayName"
-                     IsSynchronizedWithCurrentItem="True"
-                     SelectedItem="{Binding SelectedAuthenticationType, Mode=TwoWay}" 
-                     IsEditable="False"
-                     Height="26" 
-                     Margin="3">
-
+                      DisplayMemberPath="DisplayName"
+                      SelectedItem="{Binding SelectedAuthenticationType}" 
+                      HorizontalAlignment="Stretch"
+                      IsEditable="False" 
+                      Height="26" 
+                      Margin="3">
             </ComboBox>
-        </controls:DockPanel>-->
+        </controls:DockPanel>
 
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Client type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
         <controls:DockPanel Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" LastChildFill="True">
-            <Button Width="20" Margin="2"  BorderBrush="{x:Null}" Style="{StaticResource CommandButtonStyle}">
+            <Button controls:DockPanel.Dock="Right" Width="20" Margin="2"  
+                    Command="{Binding AddClientTypeCommand}"  
+                    Style="{StaticResource CommandButtonStyle}">
+                <FontIcon FontFamily="{StaticResource FontAwesome}" Glyph="wine-glass-alt"/>
             </Button>
-            <ComboBox ItemsSource="{Binding ClientTypes}" IsEditable="False" Height="26" Margin="3"
+            <ComboBox ItemsSource="{Binding ClientTypes}" 
+                      IsEditable="False" 
+                      Height="26" 
+                      Margin="3"
                       DisplayMemberPath="DisplayName" 
                       SelectedValuePath="Id"
-                      SelectedItem="{Binding ClientTypeId}">
+                      SelectedItem="{Binding ClientTypeId}"
+                      HorizontalAlignment="Stretch">
             </ComboBox>
         </controls:DockPanel>
 

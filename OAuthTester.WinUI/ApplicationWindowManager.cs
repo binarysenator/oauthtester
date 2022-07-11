@@ -1,9 +1,6 @@
 ﻿using System;
-using Microsoft.UI.Xaml;
-using OAuthTester.ViewModels;
 using OAuthTester.ViewModels.Dialogue;
 using OAuthTester.WinUI.Views;
-using Redbridge.WinUI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
@@ -24,12 +21,10 @@ namespace OAuthTester
         {
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             var contentDialog = _serviceProvider.GetRequiredService<ClientEditorWindow>();
-            //var contentDialog = new ContentDialog();
             contentDialog.Title = viewModel.Title;
             contentDialog.XamlRoot = mainWindow.Content.XamlRoot;
             contentDialog.PrimaryButtonText = "OK";
             contentDialog.CloseButtonText = "Cancel";
-
             var result = await contentDialog.ShowAsync();
             return result;
         }
