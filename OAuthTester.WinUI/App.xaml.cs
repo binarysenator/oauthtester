@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using OAuthTester.Engine;
 using OAuthTester.Engine.AuthenticationTypes;
 using OAuthTester.ViewModels.Dialogue;
+using OAuthTester.WinUI.Views;
 using System;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -33,7 +34,7 @@ namespace OAuthTester.WinUI
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
-            //services.AddTransient<ClientEditorWindow>();
+            services.AddTransient<ClientEditorWindow>();
             //services.AddTransient<AuthenticationServerEditorWindow>();
             //services.AddTransient<ClientTypeEditorWindow>();
 

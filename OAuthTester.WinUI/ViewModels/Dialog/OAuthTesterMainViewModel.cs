@@ -28,12 +28,12 @@ public class OAuthTesterMainViewModel : WindowViewModel, IOAuthTesterMainViewMod
         _configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
         _authenticationTypeFactory = authenticationTypeFactory;
 
-        _addCommand = new DelegateCommand((obj) =>
+        _addCommand = new DelegateCommand(async (obj) =>
         {
             var viewModel = new ClientEditorWindowViewModel(configurationLoader, applicationWindowManager, authenticationTypeFactory);
-            var result = applicationWindowManager1.ShowDialog(viewModel);
+            var result = await applicationWindowManager1.ShowDialog(viewModel);
 
-            if ( result.HasValue && result.Value )
+            if ( result == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary )
             {
                 AddOrUpdate(viewModel.GetClientConfiguration());
             }

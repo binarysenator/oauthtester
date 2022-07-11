@@ -78,7 +78,7 @@ namespace OAuthTester.ViewModels.Dialogue
         {
             var configuration = _loader.Current;
             _compositeDisposable.Add(configuration.AuthenticationServersObservable
-                .ObserveOnDispatcher()
+                //.ObserveOnDispatcher()
                 .Subscribe(s =>
                 {
                     if (s.Type == ChangeType.Added)
@@ -88,7 +88,7 @@ namespace OAuthTester.ViewModels.Dialogue
                 }));
 
             _compositeDisposable.Add(configuration.ClientTypesObservable
-                .ObserveOnDispatcher()
+                //.ObserveOnDispatcher()
                 .Subscribe(s =>
                 {
                     if (s.Type == ChangeType.Added)

@@ -1,8 +1,13 @@
 ﻿using System;
-using System.Windows;
+using Microsoft.UI.Xaml;
 using OAuthTester.ViewModels;
 using OAuthTester.ViewModels.Dialogue;
+using OAuthTester.WinUI.Views;
 using Redbridge.WinUI;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
+using System.Threading.Tasks;
+using OAuthTester.WinUI;
 
 namespace OAuthTester
 {
@@ -15,21 +20,18 @@ namespace OAuthTester
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        private bool? ShowDialog<TView> (IWindowViewModel viewModel) where TView: Window, new()
+        public async Task<ContentDialogResult> ShowDialog(ClientEditorWindowViewModel viewModel)
         {
-            var window = new TView
-            {
-                DataContext = viewModel,
-                Owner = Application.Current.MainWindow
-            };
-            
-            window.ShowDialog();
-            return viewModel.DialogResult;
-        }
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            var contentDialog = _serviceProvider.GetRequiredService<ClientEditorWindow>();
+            //var contentDialog = new ContentDialog();
+            contentDialog.Title = viewModel.Title;
+            contentDialog.XamlRoot = mainWindow.Content.XamlRoot;
+            contentDialog.PrimaryButtonText = "OK";
+            contentDialog.CloseButtonText = "Cancel";
 
-        public bool? ShowDialog(ClientEditorWindowViewModel viewModel)
-        {
-            return null; //return ShowDialog<ClientEditorWindow>(viewModel);
+            var result = await contentDialog.ShowAsync();
+            return result;
         }
 
         public bool? ShowDialog(AuthenticationServerEditorWindowViewModel viewModel)
