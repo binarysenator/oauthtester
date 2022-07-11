@@ -1,5 +1,4 @@
-﻿using Redbridge.Identity;
-
+﻿
 namespace OAuthTester.Engine.AuthenticationTypes;
 
 public class ClientSecretAuthenticationType : AuthenticationType
@@ -15,10 +14,10 @@ public class ClientSecretAuthenticationType : AuthenticationType
         if ( Server == null ) throw new NotSupportedException();
         
         var uri = new Uri(new Uri(Server.AuthenticationUrl), Server.TokenEndpoint ?? string.Empty);
-        var data = new OAuthAccessTokenRequestData() { ClientId = clientType.ClientId, ClientSecret = clientType.Secret, Email = Settings.Username, Password = Settings.Password, GrantType = GrantTypes.Password };
-
+        //var data = new OAuthAccessTokenRequestData() { ClientId = clientType.ClientId, ClientSecret = clientType.Secret, Email = Settings.Username, Password = Settings.Password, GrantType = GrantTypes.Password };
+        var dictionary = new Dictionary<string, string>();
         var client = ClientFactory.CreateClient("OAuthClient");
-        var response = await client.PostAsync(uri, new FormUrlEncodedContent(data.AsDictionary()));
+        var response = await client.PostAsync(uri, new FormUrlEncodedContent(dictionary));
         if (response.IsSuccessStatusCode)
         {
             Status.OnNext(ClientStatus.Running);

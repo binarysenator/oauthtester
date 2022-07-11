@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using OAuthTester.Engine;
 
-namespace OauthTester.ViewModels;
+namespace OAuthTester.WinUI.ViewModels;
 
 public interface IOAuthClientViewModel
 {

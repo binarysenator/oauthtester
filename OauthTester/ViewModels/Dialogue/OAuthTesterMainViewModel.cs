@@ -6,7 +6,6 @@ using System.Windows.Input;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
-using Redbridge;
 
 namespace OAuthTester.ViewModels.Dialogue;
 

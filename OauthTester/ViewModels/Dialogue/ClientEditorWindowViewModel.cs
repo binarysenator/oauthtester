@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using System.Windows.Input;
 using OAuthTester.Engine;
 using OauthTester.ViewModels;
 using OAuthTester.ViewModels.Commands;
 using OAuthTester.ViewModels.DesignTime;
-using Redbridge;
 
 namespace OAuthTester.ViewModels.Dialogue
 {
@@ -102,10 +100,10 @@ namespace OAuthTester.ViewModels.Dialogue
         private void OnConfigure(IConfigurationManager loader)
         {
             var current = loader.Current;
-            current.AuthenticationServers.ForEach(s => AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(s)));
+            //current.AuthenticationServers.ForEach(s => AuthenticationServers.Add(AuthenticationServerListItemViewModel.From(s)));
 
             var types = _authenticationTypeFactory.GetAll();
-            types.ForEach((type) => AuthenticationTypes.Add(new AuthenticationTypeListItemViewModel() { Id = type.TypeId, DisplayName = type.Name }));
+            //types.ForEach((type) => AuthenticationTypes.Add(new AuthenticationTypeListItemViewModel() { Id = type.TypeId, DisplayName = type.Name }));
         }
 
         public string? DisplayName
