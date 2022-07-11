@@ -16,12 +16,9 @@
     <None Remove="Images\android.png" />
     <None Remove="Images\iphone.png" />
     <None Remove="Images\website.png" />
-    <None Remove="Views\BlankPage1.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="Views\AuthenticationServerEditorWindow.xaml" />
-    <Page Remove="Views\ClientEditorWindow.xaml" />
-    <Page Remove="Views\ClientTypeEditorWindow.xaml" />
+    <None Remove="Views\AuthenticationServerEditorWindow.xaml" />
+    <None Remove="Views\ClientEditorWindow.xaml" />
+    <None Remove="Views\ClientTypeEditorWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,17 +59,14 @@
     <Resource Include="Images\website.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Views\AuthenticationServerEditorWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <Page Update="Views\BlankPage1.xaml">
+    <Page Update="Views\AuthenticationServerEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Update="Views\ClientEditorWindow.xaml">
+    <Page Update="Views\ClientEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Views\ClientTypeEditorWindow.xaml">
+    </Page>
+    <Page Update="Views\ClientTypeEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </Page>
   </ItemGroup>
 </Project>

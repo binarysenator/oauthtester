@@ -3,12 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OAuthTester.Dialogues"
         xmlns:designTime="using:OAuthTester.WinUI.ViewModels.DesignTime"
-        xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
-        Title="{Binding Title}" >
+        mc:Ignorable="d">
     <Grid x:Name="MainGrid"  Margin="5" d:DataContext="{d:DesignInstance designTime:DesignTimeClientTypeEditorViewModel, IsDesignTimeCreatable=True}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

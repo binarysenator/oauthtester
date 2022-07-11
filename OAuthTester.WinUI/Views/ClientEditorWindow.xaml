@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:designTime="using:OAuthTester.WinUI.ViewModels.DesignTime" 
         xmlns:controls="using:System.Windows.Controls"
-        mc:Ignorable="d"
-        Title="{Binding Title}" >
+        mc:Ignorable="d">
     <Grid d:DataContext="{d:DesignInstance designTime:DesignTimeOAuthClientEditorWindowViewModel, IsDesignTimeCreatable=True}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -24,7 +23,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Authentication server" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <controls:DockPanel Grid.Column="2" Grid.Row="0">
+        <!--<controls:DockPanel Grid.Column="2" Grid.Row="0">
+
             <Button Width="20" Margin="2" Command="{Binding AddAuthenticationServerCommand}" Background="{x:Null}" BorderBrush="{x:Null}">
             </Button>
             <ComboBox ItemsSource="{Binding AuthenticationServers}" 
@@ -32,10 +32,10 @@
                      SelectedValuePath="Id"
                      SelectedItem="{Binding AuthenticationServiceId}"  IsEditable="False" Height="26" Margin="3"></ComboBox>
 
-        </controls:DockPanel>
+        </controls:DockPanel>-->
 
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Authentication type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <controls:DockPanel Grid.Column="2" Grid.Row="1">
+        <!--<controls:DockPanel Grid.Column="2" Grid.Row="1">
             
             <ComboBox ItemsSource="{Binding AuthenticationTypes}" 
                      DisplayMemberPath="DisplayName"
@@ -46,10 +46,10 @@
                      Margin="3">
 
             </ComboBox>
-        </controls:DockPanel>
+        </controls:DockPanel>-->
 
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Client type" Style="{StaticResource HeaderTextBlock}"></TextBlock>
-        <controls:DockPanel Grid.Column="2" Grid.Row="2">
+        <!--<controls:DockPanel Grid.Column="2" Grid.Row="2">
             <Button Width="20" Margin="2"  BorderBrush="{x:Null}" Style="{StaticResource CommandButtonStyle}">
             </Button>
             <ComboBox ItemsSource="{Binding ClientTypes}" IsEditable="False" Height="26" Margin="3"
@@ -57,8 +57,7 @@
                       SelectedValuePath="Id"
                       SelectedItem="{Binding ClientTypeId}">
             </ComboBox>
-            
-        </controls:DockPanel>
+        </controls:DockPanel>-->
 
         <TextBlock Grid.Column="1" Grid.Row="3" Text="Username (email)" Style="{StaticResource HeaderTextBlock}"></TextBlock>
         <TextBox Grid.Column="2" Grid.Row="3" Style="{StaticResource EntryTextBox}" Text="{Binding Username}"/>
