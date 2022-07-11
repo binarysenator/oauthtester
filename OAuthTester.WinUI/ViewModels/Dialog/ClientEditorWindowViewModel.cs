@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
 using System.Windows.Input;
 using OAuthTester.Engine;
-using OauthTester.ViewModels;
-using OAuthTester.ViewModels.Commands;
-using OAuthTester.ViewModels.DesignTime;
 using System.Reactive.Linq;
+using OAuthTester.WinUI.ViewModels;
+using Redbridge.WinUI;
+using Redbridge.WinUI.Commands;
 
 namespace OAuthTester.ViewModels.Dialogue
 {
@@ -88,7 +88,7 @@ namespace OAuthTester.ViewModels.Dialogue
                 }));
 
             _compositeDisposable.Add(configuration.ClientTypesObservable
-                //.ObserveOnDispatcher()
+                .ObserveOnDispatcher()
                 .Subscribe(s =>
                 {
                     if (s.Type == ChangeType.Added)

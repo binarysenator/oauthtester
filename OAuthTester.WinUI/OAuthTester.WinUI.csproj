@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>OAuthTester.WinUI</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -10,11 +10,18 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\android.png" />
     <None Remove="Images\iphone.png" />
     <None Remove="Images\website.png" />
+    <None Remove="Views\BlankPage1.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Views\AuthenticationServerEditorWindow.xaml" />
+    <Page Remove="Views\ClientEditorWindow.xaml" />
+    <Page Remove="Views\ClientTypeEditorWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +38,7 @@
     <PackageReference Include="FontAwesome5" Version="2.1.11" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
@@ -52,5 +60,19 @@
     <Resource Include="Images\android.png" />
     <Resource Include="Images\iphone.png" />
     <Resource Include="Images\website.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Views\AuthenticationServerEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Update="Views\BlankPage1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Update="Views\ClientEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ClientTypeEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

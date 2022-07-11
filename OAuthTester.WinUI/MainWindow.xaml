@@ -4,85 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <Grid Tag="Root">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Width="24" Height="24"></Image>
-                <TextBlock TextAlignment="Center" Margin="10" FontSize="22">OAuth2 Authentication Tester</TextBlock>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row ="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="5"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <ListView Grid.Row="0" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient, Mode=TwoWay}" BorderThickness="0">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Image Width="32" Height="48" Source="{Binding ClientId, Converter={StaticResource ClientImageConverter}}" Margin="2"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding ClientId, Converter={StaticResource ClientNameConverter}}" FontSize="14"></TextBlock>
-                                    <TextBlock Text="{Binding Username}" Foreground="Green"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource CommandButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Add</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Black"></FontIcon>
-                        </StackPanel>
-                    </Button>
-                    <!--<Button Style="{StaticResource CommandButtonStyle}" Command="{Binding DeleteCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Delete</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Orange"></FontIcon>
-                        </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StartCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Green"></FontIcon>
-                        </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StopCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Red"></FontIcon>
-                        </StackPanel>
-                    </Button>-->
-                </StackPanel>
-            </Grid>
-            </Grid>
-        </Grid>
-    <!--<Grid Tag="Root">
+    xmlns:design="using:OAuthTester.WinUI.ViewModels.DesignTime"
+    mc:Ignorable="d" >
+    <Grid x:Name="MainGrid" Tag="Root" d:DataContext="{d:DesignInstance design:DesignTimeOAuthTesterMainViewModel, IsDesignTimeCreatable=True}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -200,27 +124,18 @@
 
                 <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource InfoHeaderTextBlock}">Connection status</TextBlock>
                 <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Status}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            --><!--<Style.Triggers>
-                                <Trigger Property="Text" Value="Running">
-                                    <Setter Property="Foreground" Value="Green" />
-                                </Trigger>
-                            </Style.Triggers>--><!--
-                        </Style>
-                    </TextBlock.Style>
                 </TextBlock>
 
                 <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource InfoHeaderTextBlock}">Refresh in</TextBlock>
-                --><!--<DockPanel Grid.Row="5" Grid.Column="2" LastChildFill="True" HorizontalAlignment="Stretch">
+                
+                <!--<DockPanel Grid.Row="5" Grid.Column="2" LastChildFill="True" HorizontalAlignment="Stretch">
                     <TextBlock Text="{Binding RefreshIn}" DockPanel.Dock="Right" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <ProgressBar Height="12" HorizontalAlignment="Stretch"></ProgressBar>
-                </DockPanel>--><!--
+                </DockPanel>-->
 
                 <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource InfoHeaderTextBlock}">Authentication server</TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding ClientId}"></TextBlock>
-
+            </Grid>
             </Grid>
         </Grid>
-    </Grid>-->
 </Window>
