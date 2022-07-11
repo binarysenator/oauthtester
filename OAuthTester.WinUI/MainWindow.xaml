@@ -64,19 +64,19 @@
                     <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding DeleteCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource CommandButtonTextStyle}">Delete</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Orange"></FontIcon>
+                            <FontIcon Glyph="&#xE949;" Foreground="Orange"></FontIcon>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StartCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Green"></FontIcon>
+                            <FontIcon Glyph="&#xE768;" Foreground="Green"></FontIcon>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource CommandButtonStyle}" Command="{Binding StopCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Start</TextBlock>
-                            <FontIcon Glyph="&#xF193;" Foreground="Red"></FontIcon>
+                            <TextBlock Style="{StaticResource CommandButtonTextStyle}">Stop</TextBlock>
+                            <FontIcon Glyph="&#xE71A;" Foreground="Red"></FontIcon>
                         </StackPanel>
                     </Button>
                 </StackPanel>
